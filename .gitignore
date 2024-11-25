@@ -1,0 +1,14 @@
+# תלות של Node.js
+node_modules/
+
+# תיקיות זמניות
+output/
+output/files/
+
+# קבצים זמניים של מערכת ההפעלה
+*.log
+*.tmp
+.DS_Store
+
+# הגדרות סביבת פיתוח
+.env
