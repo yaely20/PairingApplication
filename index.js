@@ -10,10 +10,27 @@ const outputDir = path.resolve(__dirname, './output/files'); // נתיב לקב�
 const dataPath = path.resolve(__dirname, './example.xlsx'); // נתיב לקובץ הנתונים
 
 // קריאת הנתונים מקובץ Excel
-const data = readExcelFile(dataPath);
+let data = readExcelFile(dataPath);
 
-// אימות נתונים
+// רשימת כותרות נדרשות
 const expectedHeaders = ["name", "age", "family"];
+
+// בדוק אם קיימת עמודת מספור (id)
+if (!Object.keys(data[0]).includes("id")) {
+    console.log("עמודת מספור חסרה. מוסיף עמודה...");
+    
+    // הוסף עמודה של מספור לכל שורה
+    data = data.map((row, index) => ({
+        id: index + 1, // מספור רץ
+        ...row // העתקת כל השדות הקיימים
+    }));
+    
+    // עדכון האקסל המקורי עם המספור
+    writeExcelFile(dataPath, data);
+    console.log("עמודת המספור נוספה ונשמרה לאקסל.");
+}
+
+// בדוק אם כל הכותרות הנדרשות קיימות
 if (!expectedHeaders.every(header => Object.keys(data[0]).includes(header))) {
     console.error("שגיאה: כותרות אינן תואמות.");
     process.exit();
