@@ -40,10 +40,17 @@ if (!expectedHeaders.every(header => Object.keys(data[0]).includes(header))) {
 const maxAgeDifference = 15;
 const { pairs, unpaired } = pairParticipants(data, maxAgeDifference);
 
-// שמירת תוצאות ל-Excel
+// Save results to a new Excel file including the 'id' field for each pair
 writeExcelFile(`${outputDir}/friends.xlsx`, pairs.map(([p1, p2]) => ({
-    זוג_1_שם: p1.name, זוג_1_גיל: p1.age, זוג_1_משפחה: p1.family,
-    זוג_2_שם: p2.name, זוג_2_גיל: p2.age, זוג_2_משפחה: p2.family
+    id_1: p1.id,  // Add 'id' for participant 1
+    זוג_1_שם: p1.name, 
+    זוג_1_גיל: p1.age, 
+    זוג_1_משפחה: p1.family,
+    
+    id_2: p2.id,  // Add 'id' for participant 2
+    זוג_2_שם: p2.name, 
+    זוג_2_גיל: p2.age, 
+    זוג_2_משפחה: p2.family
 })));
 
 // יצירת PDF
